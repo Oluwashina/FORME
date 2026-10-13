@@ -1,0 +1,175 @@
+import type { GarmentKind, ItemTemplate, Slot } from '../types'
+import { color } from './colors'
+
+/**
+ * Item catalogue — sample content. Pieces are described generically (no brands, prices or
+ * shopping links). When real product data is available, swap this module for an API call.
+ */
+
+const FIT: Partial<Record<GarmentKind, string>> = {
+  tee: 'Straight through the body; sleeve ends mid-bicep; hem sits just below the belt line.',
+  polo: 'Close but not clingy; collar lies flat; sleeve hits the middle of the bicep.',
+  shirt: 'Shoulder seam sits on the shoulder bone; just enough room to fold your arm without pulling.',
+  knit: 'Slightly relaxed through the chest with a ribbed hem that sits at the hip.',
+  turtleneck: 'Neck fits snug without choking; body skims the torso; cuffs stack gently at the wrist.',
+  blazer: 'Shoulders exact, sleeves showing a quarter-inch of cuff, jacket length covering the seat.',
+  coat: 'Cut roomy enough to layer over a knit; hem lands at or just above the knee.',
+  overshirt: 'Boxier than a shirt, slightly shorter than a jacket; room for a tee or knit underneath.',
+  tunic: 'Straight, easy cut that falls to mid-thigh; sleeves finish at the wrist bone.',
+  trousers: 'Mid-rise with a clean taper; a slight break — or none — at the shoe.',
+  jeans: 'Straight or relaxed leg; hem grazes the top of the shoe.',
+  loafers: 'Snug at the heel, room across the toes; sits low on the foot.',
+  boots: 'Secure at the ankle; trouser hem should skim the top of the shaft.',
+  sneakers: 'True to size with a clean, low profile and minimal branding.',
+  belt: 'Roughly 3.5cm wide; buckle sits on the middle hole.',
+  watch: '38–40mm case with a slim profile that slides under a shirt cuff.',
+}
+
+const make = (
+  key: string,
+  name: string,
+  slot: Slot,
+  icon: GarmentKind,
+  colorKey: string,
+  fabric: string,
+  note: string,
+  alternatives: string,
+  fit?: string,
+): ItemTemplate => ({
+  key,
+  name,
+  slot,
+  icon,
+  color: color(colorKey),
+  fabric,
+  fit: fit ?? FIT[icon] ?? 'True to size, worn with a little room.',
+  note,
+  alternatives: alternatives.split('|'),
+})
+
+const list: ItemTemplate[] = [
+  /* ---------------- tops ---------------- */
+  make('white-tee', 'White crew-neck tee', 'top', 'tee', 'white', 'Heavyweight cotton jersey', 'An opaque, structured white tee makes every other piece look deliberate.', 'Off-white pocket tee|Ecru linen-blend tee|Light grey marl tee'),
+  make('black-tee', 'Black crew-neck tee', 'top', 'tee', 'black', 'Dense cotton jersey, garment-dyed', 'Keep the black deep and the neckline tight so it reads as intentional.', 'Charcoal tee|Washed-black tee|Navy tee'),
+  make('grey-tee', 'Grey marl tee', 'top', 'tee', 'lightgrey', 'Mid-weight cotton jersey', 'Soft grey ties white and black together without competing.', 'Heather-grey tee|Stone tee|Pale blue tee'),
+  make('oatmeal-tee', 'Oatmeal knit tee', 'top', 'tee', 'oatmeal', 'Cotton–linen jersey', 'A warm neutral that flatters most skin tones better than stark white.', 'Ecru tee|Sand tee|Stone tee'),
+  make('white-polo', 'White piqué polo', 'top', 'polo', 'white', 'Cotton piqué', 'The easiest step up from a tee — structured collar, no tie required.', 'Cream polo|Pale blue polo|Ecru knit polo'),
+  make('cream-knit-polo', 'Cream knitted polo', 'top', 'polo', 'cream', 'Fine-gauge cotton or merino knit', 'Soft texture and a collar give a tee-level ease with tailoring-level polish.', 'Ivory merino polo|Oatmeal knit polo|Light grey knit polo'),
+  make('tan-knit-polo', 'Tan knitted polo', 'top', 'polo', 'tan', 'Fine-gauge cotton knit', 'A rich warm neutral that looks expensive against black or navy.', 'Camel polo|Sand polo|Chocolate polo'),
+  make('white-oxford', 'White oxford shirt', 'top', 'shirt', 'white', 'Cotton oxford cloth', 'Worn open at the collar it is casual; buttoned and tucked it is quietly sharp.', 'Pale blue oxford|Ecru oxford|White poplin shirt'),
+  make('light-blue-oxford', 'Light blue oxford shirt', 'top', 'shirt', 'lightblue', 'Cotton oxford cloth', 'The most reliable shirt colour in menswear — flatters every skin tone and pairs with anything dark.', 'White oxford|Blue micro-stripe shirt|Pale grey shirt'),
+  make('white-dress-shirt', 'White dress shirt', 'top', 'shirt', 'white', 'Cotton poplin, semi-spread collar', 'Crisp, bright and perfectly pressed — the foundation under every suit.', 'Pale blue poplin shirt|Ivory poplin shirt|Fine twill shirt'),
+  make('white-linen-shirt', 'White linen shirt', 'top', 'shirt', 'white', 'Washed linen', 'Wrinkles are the point — linen looks best slightly undone.', 'Stone linen shirt|Pale blue linen shirt|Cotton–linen blend shirt'),
+  make('cream-camp-shirt', 'Cream camp-collar shirt', 'top', 'shirt', 'cream', 'Viscose–linen blend', 'An open camp collar is relaxed but still reads dressed in warm weather.', 'Ivory camp shirt|Sand camp shirt|Light blue camp shirt'),
+  make('ivory-turtleneck', 'Ivory merino turtleneck', 'top', 'turtleneck', 'ivory', 'Fine merino wool', 'A turtleneck replaces shirt, tie and fuss in one move.', 'Cream roll-neck|Oatmeal roll-neck|Light grey roll-neck'),
+  make('black-turtleneck', 'Black merino turtleneck', 'top', 'turtleneck', 'black', 'Fine merino wool', 'Sleek and graphic; works under a blazer or alone with tailored trousers.', 'Charcoal roll-neck|Chocolate roll-neck|Navy roll-neck'),
+  make('rust-turtleneck', 'Rust fine-knit turtleneck', 'top', 'turtleneck', 'rust', 'Merino–cotton knit', 'A burnt warm accent that sits naturally under camel and brown.', 'Terracotta knit|Mustard knit|Chocolate roll-neck'),
+  make('burgundy-crewneck', 'Burgundy merino crewneck', 'top', 'knit', 'burgundy', 'Merino wool', 'Deep wine reads rich in low light — made for evenings and autumn.', 'Deep wine knit|Plum knit|Chocolate knit'),
+  make('pale-blue-knit', 'Pale blue cotton knit', 'top', 'knit', 'lightblue', 'Cotton or cotton–cashmere blend', 'Soft colour with a calm texture; good against stone and ecru.', 'Sky blue knit|Light grey knit|Sage knit'),
+  make('grey-cardigan', 'Grey knitted cardigan', 'layer', 'knit', 'grey', 'Chunky cotton or wool knit', 'Reads as a sweater with an open front — easy to layer over a white tee.', 'Charcoal cardigan|Oatmeal cardigan|Navy cardigan'),
+  make('mustard-sweatshirt', 'Mustard heavyweight sweatshirt', 'top', 'knit', 'mustard', 'Brushed-back loopback cotton', 'One strong colour among washed neutrals keeps a casual look intentional.', 'Rust sweatshirt|Forest sweatshirt|Oatmeal sweatshirt'),
+  make('black-sweatshirt', 'Black heavyweight sweatshirt', 'top', 'knit', 'black', 'Loopback cotton fleece', 'Boxy and heavy — the volume is the style.', 'Charcoal sweatshirt|Washed-black hoodie|Navy sweatshirt'),
+  make('forest-henley', 'Forest green knit henley', 'top', 'knit', 'forest', 'Cotton rib knit', 'Deep green is an earthy, grown-up alternative to navy.', 'Moss knit|Charcoal henley|Chocolate henley'),
+  make('sky-blue-tunic', 'Sky blue embroidered tunic', 'top', 'tunic', 'skyblue', 'Cotton–linen with tonal embroidery', 'Tonal embroidery adds detail without needing a second colour.', 'Ivory tunic|Sand tunic|Pale grey tunic'),
+  make('white-tunic', 'White embroidered tunic', 'top', 'tunic', 'white', 'Light cotton with tonal embroidery', 'All-white with texture is celebratory without trying too hard.', 'Cream tunic|Pale stone tunic|Ecru tunic'),
+
+  /* ---------------- layers ---------------- */
+  make('tan-suede-jacket', 'Tan suede-look jacket', 'layer', 'overshirt', 'tan', 'Suede or brushed cotton twill', 'A warm, cropped layer that works over tees and knits alike.', 'Camel chore jacket|Tan harrington|Brown corduroy jacket'),
+  make('sand-overshirt', 'Sand cotton overshirt', 'layer', 'overshirt', 'sand', 'Cotton twill', 'Worn open like a light jacket, it replaces a blazer on weekends.', 'Khaki shacket|Stone chore jacket|Light olive overshirt'),
+  make('olive-overshirt', 'Olive overshirt', 'layer', 'overshirt', 'olive', 'Washed cotton twill', 'Olive sits between neutral and colour — it goes with nearly everything earthy.', 'Moss shacket|Khaki overshirt|Charcoal overshirt'),
+  make('olive-field-jacket', 'Olive field jacket', 'layer', 'overshirt', 'moss', 'Cotton ripstop or twill', 'Utility heritage with a rugged, hard-wearing feel.', 'Navy chore jacket|Khaki field jacket|Black coach jacket'),
+  make('grey-wool-blazer', 'Grey wool blazer', 'layer', 'blazer', 'grey', 'Wool flannel or fresco', 'Worn with a tee it makes casual look considered.', 'Charcoal blazer|Navy blazer|Oatmeal unstructured blazer'),
+  make('navy-blazer', 'Navy blazer', 'layer', 'blazer', 'navy', 'Wool twill or hopsack', 'The most versatile jacket you can own — dress it up or down.', 'Midnight blazer|Charcoal blazer|Unstructured navy jacket'),
+  make('black-blazer', 'Black unstructured blazer', 'layer', 'blazer', 'black', 'Wool–viscose crepe', 'Relaxed shoulders let it look polished without feeling stiff.', 'Charcoal blazer|Black knit blazer|Navy blazer'),
+  make('black-dinner-jacket', 'Black dinner jacket', 'layer', 'blazer', 'black', 'Wool barathea with satin lapels', 'The only evening jacket you need for a formal invitation.', 'Midnight dinner jacket|Velvet dinner jacket|Black wool tuxedo'),
+  make('camel-overcoat', 'Camel wool overcoat', 'layer', 'coat', 'camel', 'Wool–cashmere blend', 'The single most elegant outerwear colour for a man.', 'Tan wool coat|Oatmeal coat|Chocolate coat'),
+  make('brown-overcoat', 'Brown wool overcoat', 'layer', 'coat', 'brown', 'Heavy wool melton', 'Deeper than camel, with a more serious, autumnal tone.', 'Chocolate coat|Camel coat|Charcoal coat'),
+  make('black-overcoat', 'Black wool overcoat', 'layer', 'coat', 'black', 'Dense wool', 'A black coat closes any outfit with a sharp silhouette.', 'Charcoal overcoat|Navy overcoat|Black car coat'),
+  make('stone-trench', 'Stone trench coat', 'layer', 'coat', 'stone', 'Cotton gabardine', 'Timeless and weather-ready, it turns a plain outfit into a considered one.', 'Khaki trench|Sand mac|Oatmeal raincoat'),
+  make('shearling-trucker', 'Shearling-lined trucker jacket', 'layer', 'overshirt', 'taupe', 'Denim or suede with shearling collar', 'Heavy texture gives a simple outfit instant weight.', 'Corduroy trucker|Faux-shearling collar jacket|Wool overshirt'),
+  make('black-leather-jacket', 'Black leather jacket', 'layer', 'overshirt', 'black', 'Soft lambskin or cowhide', 'Slim, clean and lightly worn-in — nothing studded or over-styled.', 'Black suede jacket|Waxed cotton jacket|Dark brown leather jacket'),
+  make('brown-leather-jacket', 'Brown suede jacket', 'layer', 'overshirt', 'brown', 'Suede', 'A warm texture that makes dark neutrals feel richer.', 'Tan leather jacket|Chocolate harrington|Brown corduroy jacket'),
+  make('brown-blazer', 'Brown wool blazer', 'layer', 'blazer', 'brown', 'Textured wool or hopsack', 'A less expected tailoring colour that pairs beautifully with cream and sage.', 'Chocolate blazer|Tan blazer|Olive blazer'),
+  make('stone-linen-blazer', 'Stone linen blazer', 'layer', 'blazer', 'stone', 'Linen–wool blend', 'Breathable and softly structured for warm-weather events.', 'Sand blazer|Pale grey blazer|Oatmeal suit jacket'),
+  make('french-blue-blazer', 'French blue linen blazer', 'layer', 'blazer', 'blue', 'Linen–cotton blend', 'A mid blue jacket brightens a pale or white base.', 'Navy blazer|Sky blue jacket|Indigo overshirt'),
+  make('french-blue-suit-jacket', 'French blue suit jacket', 'layer', 'blazer', 'blue', 'Wool twill', 'Bold but wearable — keep the shirt white and the tie dark.', 'Navy suit jacket|Mid grey suit jacket|Teal suit jacket'),
+  make('grey-suit-jacket', 'Mid-grey suit jacket', 'layer', 'blazer', 'grey', 'Wool flannel', 'Grey is the quiet workhorse of tailoring.', 'Charcoal jacket|Light grey jacket|Navy jacket'),
+  make('light-grey-suit-jacket', 'Light grey suit jacket', 'layer', 'blazer', 'lightgrey', 'Wool tropical weight', 'Lighter and more modern, particularly in daylight.', 'Stone jacket|Mid grey jacket|Pale blue jacket'),
+  make('navy-suit-jacket', 'Navy suit jacket', 'layer', 'blazer', 'navy', 'Wool twill', 'Navy is the safest and most flattering suit colour there is.', 'Midnight jacket|Charcoal jacket|Mid blue jacket'),
+  make('brown-suit-jacket', 'Chocolate suit jacket', 'layer', 'blazer', 'chocolate', 'Wool or wool–silk blend', 'A distinctive alternative to navy and grey with real depth.', 'Brown jacket|Olive jacket|Dark charcoal jacket'),
+  make('olive-suit-jacket', 'Olive suit jacket', 'layer', 'blazer', 'olive', 'Wool twill', 'Deep green tailoring that feels fresh against dark knitwear.', 'Forest jacket|Moss jacket|Charcoal jacket'),
+  make('white-linen-suit-jacket', 'White linen suit jacket', 'layer', 'blazer', 'white', 'Pure linen', 'Head-to-toe white is bold; linen keeps it relaxed.', 'Cream jacket|Ecru jacket|Stone jacket'),
+  make('rust-suit-jacket', 'Rust suit jacket', 'layer', 'blazer', 'rust', 'Wool–mohair', 'A bold warm tone best kept to a single piece.', 'Mustard jacket|Burgundy jacket|Brown jacket'),
+  make('white-agbada', 'Flowing agbada', 'layer', 'tunic', 'white', 'Cotton damask or brocade', 'Wide sleeves and ceremonial proportions — the volume is the point.', 'Cream agbada|Pale blue agbada|Ivory kaftan overlay'),
+  make('black-shoulder-jacket', 'Dark unstructured jacket', 'layer', 'blazer', 'charcoal', 'Wool–cotton blend', 'Carried over the shoulder it adds a layer of ease.', 'Navy jacket|Black jacket|Olive jacket'),
+
+  /* ---------------- bottoms ---------------- */
+  make('black-trousers', 'Black tailored trousers', 'bottom', 'trousers', 'black', 'Wool-blend crepe', 'Pressed black trousers sharpen almost any top.', 'Charcoal trousers|Dark navy trousers|Black pleated trousers'),
+  make('charcoal-trousers', 'Charcoal tailored trousers', 'bottom', 'trousers', 'charcoal', 'Wool flannel', 'Softer than black, more serious than navy.', 'Mid-grey trousers|Black trousers|Navy trousers'),
+  make('grey-trousers', 'Mid-grey tailored trousers', 'bottom', 'trousers', 'grey', 'Wool flannel', 'A neutral that lets the top carry the look.', 'Charcoal trousers|Stone trousers|Navy trousers'),
+  make('navy-trousers', 'Navy tailored trousers', 'bottom', 'trousers', 'navy', 'Wool twill or cotton–wool', 'Pairs with light blue, white, cream and nearly every brown.', 'Midnight trousers|Charcoal trousers|Dark indigo chinos'),
+  make('olive-trousers', 'Olive tailored trousers', 'bottom', 'trousers', 'olive', 'Cotton twill or wool blend', 'The most refined earthy neutral — wears like a dark chino.', 'Moss trousers|Khaki trousers|Forest trousers'),
+  make('sage-trousers', 'Sage wide-leg trousers', 'bottom', 'trousers', 'sage', 'Washed cotton–linen', 'A soft green that makes brown and cream feel fresh.', 'Olive trousers|Stone trousers|Khaki trousers'),
+  make('stone-chinos', 'Stone chinos', 'bottom', 'trousers', 'stone', 'Cotton twill', 'Replaces jeans with a cleaner, lighter silhouette.', 'Sand chinos|Khaki chinos|Light grey chinos'),
+  make('stone-trousers', 'Stone pleated trousers', 'bottom', 'trousers', 'stone', 'Wool–cotton blend', 'One soft pleat adds ease through the hip and elegance in motion.', 'Ecru trousers|Taupe trousers|Light grey trousers'),
+  make('khaki-chinos', 'Khaki chinos', 'bottom', 'trousers', 'khaki', 'Cotton twill', 'A classic that lets tees and shirts do the work.', 'Stone chinos|Olive chinos|Tan chinos'),
+  make('tan-chinos', 'Tan chinos', 'bottom', 'trousers', 'tan', 'Cotton twill', 'Warmer than khaki, richer against white and navy.', 'Khaki chinos|Camel trousers|Sand chinos'),
+  make('beige-trousers', 'Beige relaxed trousers', 'bottom', 'trousers', 'beige', 'Cotton–linen', 'Light and airy — ideal for travel and heat.', 'Sand trousers|Stone trousers|Cream trousers'),
+  make('white-trousers', 'White relaxed trousers', 'bottom', 'trousers', 'white', 'Cotton–linen twill', 'Opaque fabric keeps white trousers sharp rather than sheer.', 'Ecru trousers|Cream trousers|Stone chinos'),
+  make('ecru-trousers', 'Ecru linen trousers', 'bottom', 'trousers', 'cream', 'Linen', 'Soft, warm and effortless for heat.', 'White linen trousers|Sand trousers|Stone trousers'),
+  make('mid-wash-jeans', 'Mid-wash straight jeans', 'bottom', 'jeans', 'denim', 'Mid-weight denim', 'A clean mid-blue is the simplest way to warm up a tan layer.', 'Dark indigo jeans|Black jeans|Grey denim'),
+  make('dark-jeans', 'Dark indigo jeans', 'bottom', 'jeans', 'indigo', 'Rigid or stretch-light denim', 'Dark denim dresses up quickly with a layer and a leather shoe.', 'Black jeans|Mid-wash jeans|Navy chinos'),
+  make('black-jeans', 'Black straight jeans', 'bottom', 'jeans', 'black', 'Denim', 'A softer, more casual alternative to black trousers.', 'Charcoal jeans|Dark indigo jeans|Black cords'),
+  make('baggy-jeans', 'Light-wash baggy jeans', 'bottom', 'jeans', 'lightblue', 'Washed denim', 'Volume at the leg balances a fitted or cropped top.', 'Mid-wash wide jeans|Black baggy jeans|Grey wide jeans'),
+  make('baggy-jeans-dark', 'Mid-wash wide-leg jeans', 'bottom', 'jeans', 'denim', 'Washed denim', 'Wide and low-key — let a bright top lead.', 'Light baggy jeans|Black wide jeans|Ecru wide jeans'),
+  make('french-blue-suit-trousers', 'French blue suit trousers', 'bottom', 'trousers', 'blue', 'Wool twill', 'Matches the jacket; consider breaking the set for casual wear.', 'Navy trousers|Grey trousers|Cream trousers'),
+  make('grey-suit-trousers', 'Mid-grey suit trousers', 'bottom', 'trousers', 'grey', 'Wool flannel', 'A flat-front, clean-hemmed trouser.', 'Charcoal trousers|Navy trousers|Stone trousers'),
+  make('light-grey-suit-trousers', 'Light grey suit trousers', 'bottom', 'trousers', 'lightgrey', 'Tropical wool', 'Lighter trousers lift the whole silhouette.', 'Stone trousers|Mid grey trousers|Pale blue trousers'),
+  make('navy-suit-trousers', 'Navy suit trousers', 'bottom', 'trousers', 'navy', 'Wool twill', 'Straight taper with a half-inch break.', 'Charcoal trousers|Midnight trousers|Grey trousers'),
+  make('brown-suit-trousers', 'Chocolate suit trousers', 'bottom', 'trousers', 'chocolate', 'Wool or wool–silk blend', 'Matching brown trousers create an unbroken line.', 'Charcoal trousers|Olive trousers|Cream trousers'),
+  make('olive-suit-trousers', 'Olive suit trousers', 'bottom', 'trousers', 'olive', 'Wool twill', 'Wear as a suit or break it up with a cream knit.', 'Forest trousers|Charcoal trousers|Stone trousers'),
+  make('tuxedo-trousers', 'Black tuxedo trousers', 'bottom', 'trousers', 'black', 'Wool barathea with satin side stripe', 'A single satin stripe is enough; avoid belt loops.', 'Midnight trousers|Black wool trousers|Pleated black trousers'),
+  make('white-suit-trousers', 'White linen suit trousers', 'bottom', 'trousers', 'white', 'Linen', 'Keep it unlined and slightly cropped.', 'Cream trousers|Ecru trousers|Stone trousers'),
+  make('rust-suit-trousers', 'Rust suit trousers', 'bottom', 'trousers', 'rust', 'Wool–mohair', 'Matching trousers make the colour feel designed.', 'Brown trousers|Cream trousers|Charcoal trousers'),
+
+  /* ---------------- shoes ---------------- */
+  make('white-leather-sneakers', 'White leather sneakers', 'shoes', 'sneakers', 'white', 'Smooth leather with a low-profile sole', 'Keep them spotless; clean white shoes look polished with trousers.', 'Cream leather trainers|Grey suede trainers|White canvas low-tops'),
+  make('black-leather-sneakers', 'Black leather sneakers', 'shoes', 'sneakers', 'black', 'Smooth leather', 'A minimal black sneaker keeps monochrome outfits sleek.', 'Dark grey trainers|Black suede trainers|Black canvas low-tops'),
+  make('chunky-sneakers', 'Chunky off-white sneakers', 'shoes', 'sneakers', 'cream', 'Mesh and leather with a thick sole', 'Substantial shoes balance wider trousers.', 'Grey runners|Black runners|Cream court sneakers'),
+  make('tan-suede-boots', 'Tan suede boots', 'shoes', 'boots', 'tan', 'Suede', 'Suede softens denim and adds warmth.', 'Brown chukka boots|Desert boots|Tan lace-up boots'),
+  make('brown-boots', 'Brown leather boots', 'shoes', 'boots', 'brown', 'Full-grain leather', 'Tonal with a tan jacket — warm, grounded and durable.', 'Dark brown chukkas|Tan lace-up boots|Suede boots'),
+  make('black-chelsea-boots', 'Black Chelsea boots', 'shoes', 'boots', 'black', 'Polished calf leather', 'Sleek and slip-on — the all-black outfit essential.', 'Dark brown Chelsea boots|Black loafers|Black derbies'),
+  make('dark-brown-loafers', 'Dark brown loafers', 'shoes', 'loafers', 'espresso', 'Polished calf or suede', 'The versatile heart of smart-casual footwear.', 'Tan penny loafers|Black loafers|Brown suede loafers'),
+  make('brown-loafers', 'Mid-brown loafers', 'shoes', 'loafers', 'brown', 'Burnished calf leather', 'A warmer brown for summer and lighter trousers.', 'Tan loafers|Dark brown loafers|Suede loafers'),
+  make('tan-loafers', 'Tan loafers', 'shoes', 'loafers', 'tan', 'Calf leather or suede', 'Light shoes work with light trousers; avoid a stark contrast.', 'Sand suede loafers|Mid-brown loafers|White leather sneakers'),
+  make('black-loafers', 'Black leather loafers', 'shoes', 'loafers', 'black', 'Polished calf leather', 'Sleek and minimal; ideal with black, grey and navy.', 'Black Chelsea boots|Dark brown loafers|Black derbies'),
+  make('dark-brown-oxfords', 'Dark brown oxfords', 'shoes', 'loafers', 'espresso', 'Calf leather, leather sole', 'A smart pairing with navy and grey tailoring.', 'Black oxfords|Burgundy derbies|Dark brown loafers'),
+  make('black-oxfords', 'Black oxfords', 'shoes', 'loafers', 'black', 'Polished calf leather', 'The formal default — keep them polished.', 'Dark brown oxfords|Black derbies|Black loafers'),
+  make('black-patent-oxfords', 'Black patent oxfords', 'shoes', 'loafers', 'black', 'Patent leather', 'Reserved for black tie; keep the rest of the outfit strict.', 'Black calf oxfords|Velvet slippers|Black derbies'),
+  make('brown-oxfords', 'Brown oxfords', 'shoes', 'loafers', 'brown', 'Calf leather', 'A warm brown works with mid and navy blues.', 'Dark brown oxfords|Tan derbies|Black oxfords'),
+  make('leather-sandals', 'Tan leather sandals', 'shoes', 'loafers', 'tan', 'Vegetable-tanned leather', 'Minimal and slim — ideal for heat and linen.', 'Slide-on loafers|Espadrilles|Tan loafers'),
+  make('leather-slippers', 'Tan leather slippers', 'shoes', 'loafers', 'tan', 'Soft leather', 'Soft-soled traditional slippers keep long robes comfortable.', 'Brown leather sandals|Suede loafers|Cream loafers'),
+
+  /* ---------------- accessories ---------------- */
+  make('steel-watch', 'Minimal steel watch', 'accessory', 'watch', 'lightgrey', 'Brushed steel with leather or mesh strap', 'A simple dial matches nearly any outfit.', 'Leather-strap field watch|Gold-tone dress watch|Black dial watch'),
+  make('minimal-watch', 'Minimal leather-strap watch', 'accessory', 'watch', 'brown', 'Steel or gold-tone case, leather strap', 'Match the strap to your belt for cohesion.', 'Steel bracelet watch|Black leather strap watch|Canvas strap watch'),
+  make('brown-belt', 'Matching leather belt', 'accessory', 'belt', 'espresso', 'Full-grain leather', 'Match the belt to your shoes — a rule that always works.', 'Black leather belt|Suede belt|Woven belt'),
+  make('black-belt', 'Black leather belt', 'accessory', 'belt', 'black', 'Smooth leather with a matte buckle', 'Match to black shoes; keep the buckle small.', 'Dark brown belt|Woven belt|Suede belt'),
+  make('burgundy-tie', 'Burgundy knit tie', 'accessory', 'tie', 'burgundy', 'Silk knit', 'A deep red lifts a grey or blue suit.', 'Navy silk tie|Forest green tie|Charcoal tie'),
+  make('navy-silk-tie', 'Navy silk tie', 'accessory', 'tie', 'navy', 'Silk grenadine', 'Tonal with the suit; adds texture without noise.', 'Burgundy tie|Grey tie|Dark green tie'),
+  make('brown-knit-tie', 'Chocolate knit tie', 'accessory', 'tie', 'chocolate', 'Silk knit', 'Tonal brown keeps the whole suit cohesive.', 'Cream tie|Olive tie|Burgundy tie'),
+  make('black-bow-tie', 'Black silk bow tie', 'accessory', 'tie', 'black', 'Silk', 'Self-tied if you can, but pre-tied is fine.', 'Midnight bow tie|Velvet bow tie|Black satin tie'),
+  make('panama-hat', 'Woven straw hat', 'accessory', 'hat', 'sand', 'Natural straw', 'Adds old-world summer sophistication.', 'Woven fedora|Canvas bucket hat|Linen cap'),
+  make('black-beanie', 'Black knit beanie', 'accessory', 'cap', 'black', 'Merino or cotton rib knit', 'Worn slightly above the ears for a clean look.', 'Charcoal beanie|Navy beanie|Grey beanie'),
+  make('fila-cap', 'Striped traditional cap', 'accessory', 'cap', 'lilac', 'Woven cotton', 'A traditional cap completes ceremonial wear.', 'Plain white cap|Cream cap|Embroidered cap'),
+  make('sunglasses', 'Classic acetate sunglasses', 'accessory', 'sunglasses', 'espresso', 'Acetate frames, tinted lenses', 'Choose a timeless shape that suits your face.', 'Tortoiseshell frames|Black acetate frames|Thin metal frames'),
+  make('weekender', 'Leather weekender bag', 'accessory', 'bag', 'brown', 'Full-grain leather or waxed canvas', 'One good bag removes the need for three average ones.', 'Canvas holdall|Leather tote|Slim briefcase'),
+]
+
+export const ITEM_CATALOG: Record<string, ItemTemplate> = Object.fromEntries(list.map((i) => [i.key, i]))
+
+export const item = (key: string): ItemTemplate => {
+  const t = ITEM_CATALOG[key]
+  if (!t) throw new Error(`Unknown item key: ${key}`)
+  return t
+}
